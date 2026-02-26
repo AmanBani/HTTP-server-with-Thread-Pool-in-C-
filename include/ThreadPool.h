@@ -1,0 +1,29 @@
+#ifndef THREAD_POOL_H
+#define THREAD_POOL_H
+
+#include <vector>
+#include <queue>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
+#include <functional>
+#include <atomic>
+
+class ThreadPool {
+    public:
+    explicit ThreadPool(size_t num_threads);
+    ~ThreadPool();
+
+    void enqueue(std::function<void()> task);
+
+    private:
+        std:: vector<std::thread> worker;
+        std::queue<std::function<void()>> tasks;
+        std::mutex queue_mutex;
+        std::condition_variable condition;
+        std::atomic<bool> stop;
+};
+
+#endif
+
+
