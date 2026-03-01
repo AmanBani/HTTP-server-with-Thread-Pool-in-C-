@@ -1,0 +1,73 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build (Release)",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-std=c++17",
+                "-O2",
+                "-Wall",
+                "-Wextra",
+                "-Iinclude",
+                "src/main.cpp",
+                "src/ThreadPool.cpp",
+                "src/HttpParser.cpp",
+                "src/HttpHandler.cpp",
+                "-o",
+                "build/http_server.exe",
+                "-lws2_32"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": "$gcc",
+            "detail": "Compile all sources with g++ (requires MinGW in PATH)"
+        },
+        {
+            "label": "Build (Debug)",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-std=c++17",
+                "-g",
+                "-DDEBUG",
+                "-Wall",
+                "-Wextra",
+                "-Iinclude",
+                "src/main.cpp",
+                "src/ThreadPool.cpp",
+                "src/HttpParser.cpp",
+                "src/HttpHandler.cpp",
+                "-o",
+                "build/Debug/outDebug.exe",
+                "-lws2_32"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": "$gcc",
+            "detail": "Compile with debug symbols (requires MinGW in PATH)"
+        },
+        {
+            "label": "Run Server",
+            "type": "shell",
+            "command": "./build/http_server.exe",
+            "group": "test",
+            "dependsOn": "Build (Release)",
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            },
+            "detail": "Build and start the HTTP server on port 8080"
+        }
+    ]
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>C++ HTTP Server</title>
+    <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>C++ HTTP Server</h1>
+            <p class="subtitle">Built with a custom Thread Pool &mdash; no external libraries</p>
+        </header>
+
+        <main>
+            <section class="card">
+                <h2>Server Info</h2>
+                <ul>
+                    <li><strong>Language:</strong> C++17</li>
+                    <li><strong>Networking:</strong> Winsock2 (raw sockets)</li>
+                    <li><strong>Concurrency:</strong> Custom Thread Pool</li>
+                    <li><strong>Port:</strong> 8080</li>
+                </ul>
+            </section>
+
+            <section class="card">
+                <h2>Architecture</h2>
+                <pre>
+Client Request
+     │
+     ▼
+  accept()          ← main thread
+     │
+     ▼
+ ThreadPool         ← enqueues handler
+     │
+     ▼
+ parseRequest()     ← HttpParser
+     │
+     ▼
+ buildResponse()    ← HttpHandler
+     │
+     ▼
+  send()            ← back to client
+                </pre>
+            </section>
+
+            <section class="card">
+                <h2>Try it out</h2>
+                <p>Open a terminal and run:</p>
+                <pre>curl -v http://localhost:8080/</pre>
+                <pre>curl -v http://localhost:8080/style.css</pre>
+            </section>
+        </main>
+
+        <footer>
+            <p>HTTP Server &copy; 2026</p>
+        </footer>
+    </div>
+    <script src="/app.js"></script>
+</body>
+</html>
